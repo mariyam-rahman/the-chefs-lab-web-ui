@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Header from "./Header";
+import Header from "../layout/Header";
+
 const Main = () => {
   return (
     <div className="container mx-auto">

@@ -1,11 +1,11 @@
+import Menu from "./Menu";
 import { Button } from "flowbite-react";
 import Chefs from "./Chefs";
-
 const Home = () => {
   return (
     // ---------------------Section-1 Banner------------------
-    <div className="hero  bg-white border-2 border-red-50">
-      <div className="hero-content flex-col lg:flex-row-reverse border-2 border-red-200 py-24">
+    <div className="bg-white border-2 border-red-50">
+      <div className="flex-col lg:flex-row-reverse border-2 border-red-200 py-24">
         <div>
           <img
             src="http://kamleshyadav.com/html/catering/catering/assets/images/main/story.png"
@@ -31,6 +31,8 @@ const Home = () => {
         </div>
       </div>
       <Chefs></Chefs>
+
+      <Menu></Menu>
     </div>
   );
 };
