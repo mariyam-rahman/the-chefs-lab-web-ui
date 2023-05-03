@@ -15,8 +15,8 @@ export default function Chefs() {
         Our Experienced Chef Team
       </h2>
       <div className=" sm:flex  lg:flex gap-10" style={{ flexWrap: "wrap" }}>
-        {chefs?.map((e) => (
-          <ChefItem chef={e} />
+        {chefs?.map((e, i) => (
+          <ChefItem chef={e} key={i} />
         ))}
       </div>
     </div>

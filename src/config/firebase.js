@@ -4,15 +4,16 @@ import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+// import.meta.env.VITE_FIREBASE_CONFIG
+
 // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCD5U3xR0dLDno-LCcyk1DJOaIa0JCpDks",
-  authDomain: "the-chefs-lab.firebaseapp.com",
-  projectId: "the-chefs-lab",
-  storageBucket: "the-chefs-lab.appspot.com",
-  messagingSenderId: "505822118488",
-  appId: "1:505822118488:web:126cf6586e1086fa2e002d",
-};
+
+const firebaseConfigString = import.meta.env.VITE_FIREBASE_CONFIG;
+if (!firebaseConfigString) {
+  throw new Error("VITE_FIREBASE_CONFIG env variable was not found");
+}
+// console.log({firebaseConfigString});
+const firebaseConfig = JSON.parse(firebaseConfigString);
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
