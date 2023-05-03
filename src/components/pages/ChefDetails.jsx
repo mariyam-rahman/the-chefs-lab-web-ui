@@ -9,7 +9,7 @@ const ChefDetails = () => {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate("/login");
+      navigate("/login", { state: { redirectTo: "/chef-details" } });
     }
   }, []);
 

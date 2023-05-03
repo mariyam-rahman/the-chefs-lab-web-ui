@@ -7,18 +7,17 @@ import firebaseConfig from "./../../config/firebase";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
-
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onSubmit = async () => {
     setIsLoading(true);
@@ -30,8 +29,9 @@ const Login = () => {
         console.log({ user });
 
         login(user.accessToken, { email: user.email });
+        // toast
+        navigate(location.state.redirectTo);
 
-        navigate("/");
         // ...
       })
       .catch((error) => {
@@ -93,7 +93,9 @@ const Login = () => {
             type="submit"
             onClick={(e) => {
               e.preventDefault();
-              navigate("/register");
+              navigate("/register", {
+                state: { redirectTo: location.state.redirectTo },
+              });
             }}
             style={{ flex: "1" }}
           >

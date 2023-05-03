@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 import firebaseConfig from "./../../config/firebase";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Register = () => {
   const { login } = useContext(AuthContext);
@@ -16,6 +16,7 @@ const Register = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const onSubmit = async () => {
     setIsLoading(true);
     createUserWithEmailAndPassword(firebaseConfig, email, password)
@@ -25,8 +26,8 @@ const Register = () => {
         const user = userCredential.user;
         console.log({ user });
         login(user.accessToken, { email: user.email });
-
-        navigate("/");
+        // toast
+        navigate(location.state.redirectTo);
       })
       .catch((error) => {
         setIsLoading(false);

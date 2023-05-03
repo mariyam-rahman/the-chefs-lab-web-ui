@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <div>
       <Navbar fluid={true} rounded={true}>
-        <Navbar.Brand href="/home">
+        <Navbar.Brand href="/">
           <img
             src="/src/assets/logo.png"
             className="mr-3 h-6 sm:h-36"
