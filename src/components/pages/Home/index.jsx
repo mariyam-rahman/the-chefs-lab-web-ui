@@ -1,6 +1,7 @@
 import Menu from "./Menu";
 import { Button } from "flowbite-react";
 import Chefs from "./Chefs";
+import About from "./About";
 const Home = () => {
   return (
     // ---------------------Section-1 Banner------------------
@@ -31,7 +32,7 @@ const Home = () => {
         </div>
       </div>
       <Chefs></Chefs>
-
+      <About></About>
       <Menu></Menu>
     </div>
   );

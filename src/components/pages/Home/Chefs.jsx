@@ -24,6 +24,7 @@ export default function Chefs() {
 }
 
 const ChefItem = ({ chef }) => {
+  console.log(chef);
   const {
     name,
     imageUrl,
