@@ -3,7 +3,12 @@ import { Label, TextInput, Checkbox, Button } from "flowbite-react";
 import { AuthContext } from "./../../contexts/AuthContext";
 import { useContext, useState } from "react";
 
+import firebaseConfig from "./../../config/firebase";
+
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -11,15 +16,30 @@ const Login = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
-  const onSubmit = async () => {
-    const res = await axios.post("http://localhost:3000/auth/login", {
-      email,
-      password,
-    });
+  const [isLoading, setIsLoading] = useState(false);
 
-    if (res.status === 200) {
-      login(res.data.token, res.data.user);
-    }
+  const navigate = useNavigate();
+
+  const onSubmit = async () => {
+    setIsLoading(true);
+    signInWithEmailAndPassword(firebaseConfig, email, password)
+      .then((userCredential) => {
+        // Signed in
+        setIsLoading(false);
+        const user = userCredential.user;
+        console.log({ user });
+
+        login(user.accessToken, { email: user.email });
+
+        navigate("/");
+        // ...
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log({ errorCode, errorMessage });
+      });
   };
 
   return (
@@ -58,7 +78,28 @@ const Login = () => {
           <Checkbox id="remember" />
           <Label htmlFor="remember">Remember me</Label>
         </div>
-        <Button type="submit">Submit</Button>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <Button
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              onSubmit();
+            }}
+            style={{ flex: "1" }}
+          >
+            Submit {isLoading && "...."}
+          </Button>
+          <Button
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/register");
+            }}
+            style={{ flex: "1" }}
+          >
+            Register
+          </Button>
+        </div>
       </form>
     </div>
   );
