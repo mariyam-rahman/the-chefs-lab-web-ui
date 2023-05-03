@@ -6,7 +6,7 @@ import Main from "./components/pages/Main";
 import Home from "./components/pages/Home";
 import Blog from "./components/pages/Blog";
 import Login from "./components/pages/Login";
-import { AuthProvider } from "./AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 import App from "./App";
 

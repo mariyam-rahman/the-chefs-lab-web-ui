@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useState } from "react";
 
 import "./App.css";
-import { AuthContext } from "./AuthContext";
+import { AuthContext } from "./contexts/AuthContext";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Main from "./components/pages/Main";
@@ -32,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "/chef-details",
+        element: <ChefDetails></ChefDetails>,
       },
     ],
   },
