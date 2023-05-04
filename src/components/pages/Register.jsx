@@ -5,12 +5,14 @@ import { useContext, useState } from "react";
 
 import firebaseConfig from "./../../config/firebase";
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Register = () => {
   const { login } = useContext(AuthContext);
 
+  const [name, setName] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,11 +23,14 @@ const Register = () => {
     setIsLoading(true);
     createUserWithEmailAndPassword(firebaseConfig, email, password)
       .then((userCredential) => {
-        // Signed in
+        // registration done
+        // update the user profile image
+        // ...
+        updateProfile(firebaseConfig, {});
         setIsLoading(false);
         const user = userCredential.user;
         console.log({ userCredential });
-        login(user.accessToken, { email: user.email });
+        login(user.accessToken, { email: user.email, id: user.uid });
         // toast
         navigate(location?.state?.redirectTo || "/");
       })
@@ -40,6 +45,36 @@ const Register = () => {
   return (
     <div className="container" style={{ maxWidth: "400px", margin: "auto" }}>
       <form className="flex flex-col gap-4">
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="email1" value="Name" />
+          </div>
+          <TextInput
+            value={name}
+            id="name"
+            type="text"
+            placeholder="ex: jhon smith"
+            required={true}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+          />
+        </div>
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="email1" value="Your Image URL" />
+          </div>
+          <TextInput
+            value={photoUrl}
+            id="photoUrl"
+            type="url"
+            placeholder="https://domain.extension"
+            required={false}
+            onChange={(e) => {
+              setPhotoUrl(e.target.value);
+            }}
+          />
+        </div>
         <div>
           <div className="mb-2 block">
             <Label htmlFor="email1" value="Your email" />
