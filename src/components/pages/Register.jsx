@@ -3,11 +3,15 @@ import { Label, TextInput, Checkbox, Button } from "flowbite-react";
 import { AuthContext } from "./../../contexts/AuthContext";
 import { useContext, useState } from "react";
 
-import firebaseConfig from "./../../config/firebase";
+// import firebaseConfig from "./../../config/firebase";
 
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  getAuth,
+} from "firebase/auth";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import { auth } from "./../../config/firebase";
 const Register = () => {
   const { login } = useContext(AuthContext);
 
@@ -21,18 +25,31 @@ const Register = () => {
   const location = useLocation();
   const onSubmit = async () => {
     setIsLoading(true);
-    createUserWithEmailAndPassword(firebaseConfig, email, password)
-      .then((userCredential) => {
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
         // registration done
         // update the user profile image
         // ...
-        updateProfile(firebaseConfig, {});
+        console.log({ userCredential });
+        const shit = await updateProfile(auth.currentUser, {
+          displayName: name,
+          photoURL: photoUrl,
+        });
+
+        console.log({ shit });
+
         setIsLoading(false);
         const user = userCredential.user;
-        console.log({ userCredential });
-        login(user.accessToken, { email: user.email, id: user.uid });
+        // console.log({ userCredential });
+        login(user.accessToken, {
+          email: user.email,
+          id: user.uid,
+          displayName: name,
+          photoURL: photoUrl,
+        });
         // toast
-        navigate(location?.state?.redirectTo || "/");
+        navigate(location.state?.redirectTo || "/");
       })
       .catch((error) => {
         setIsLoading(false);

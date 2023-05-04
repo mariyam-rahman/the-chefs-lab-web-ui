@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (token, newUser) => {
     setIsLoggedIn(true);
-    setUserData(user);
+    setUserData(newUser);
     setAuthToken(token);
     // save on local storage
     localStorage.setItem(
@@ -24,6 +24,10 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setIsLoggedIn(false);
+    setUserData(null);
+    setAuthToken(null);
+
+    localStorage.removeItem("AuthContext");
   };
 
   const getStoredData = () => {
@@ -47,7 +51,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log("// retrive from local storage");
     getStoredData();
   }, []);
 

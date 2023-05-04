@@ -3,11 +3,13 @@ import { Label, TextInput, Checkbox, Button } from "flowbite-react";
 import { AuthContext } from "./../../contexts/AuthContext";
 import { useContext, useState } from "react";
 
-import firebaseConfig from "./../../config/firebase";
+// import firebaseConfig from "./../../config/firebase";
 
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+
+import { auth } from "./../../config/firebase";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -21,16 +23,21 @@ const Login = () => {
 
   const onSubmit = async () => {
     setIsLoading(true);
-    signInWithEmailAndPassword(firebaseConfig, email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         setIsLoading(false);
         const user = userCredential.user;
-        console.log({ user });
+        console.log(user);
 
-        login(user.accessToken, { email: user.email, id: user.uid });
+        login(user.accessToken, {
+          email: user.email,
+          id: user.uid,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        });
         // toast
-        navigate(location.state.redirectTo || "/");
+        navigate(location.state?.redirectTo || "/");
 
         // ...
       })
@@ -90,13 +97,13 @@ const Login = () => {
             Submit {isLoading && "...."}
           </Button>
           <Button
-            type="submit"
-            onClick={(e) => {
-              e.preventDefault();
+            onClick={() => {
+              // e.preventDefault();
               navigate("/register", {
-                state: { redirectTo: location.state.redirectTo },
+                state: { redirectTo: location?.state?.redirectTo },
               });
             }}
+            className="btn"
             style={{ flex: "1" }}
           >
             Register

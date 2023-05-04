@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 export default function Chefs() {
   const [chefs, setChefs] = useState(null);
   useEffect(() => {
-    axios.get("http://localhost:3000/chefs").then((res) => setChefs(res.data));
+    axios
+      .get("https://the-chef-s-lab-server-site-mariyam-rahman.vercel.app/chefs")
+      .then((res) => setChefs(res.data));
   }, []);
 
   return (
