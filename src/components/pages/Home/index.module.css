@@ -1,0 +1,19 @@
+.chefsContainer {
+  display: grid;
+  /* grid-column: 1; */
+  gap: 50px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 768px) {
+  /* CSS styles for screens smaller than tablets */
+  .chefsContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.chefItem img {
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 5px;
+}

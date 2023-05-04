@@ -12,6 +12,7 @@ import {
 } from "firebase/auth";
 import { useNavigate, useLocation } from "react-router-dom";
 import { auth } from "./../../config/firebase";
+import { Spinner } from "flowbite-react/lib/esm";
 const Register = () => {
   const { login } = useContext(AuthContext);
 
@@ -133,7 +134,10 @@ const Register = () => {
             onSubmit();
           }}
         >
-          Submit {isLoading && "...."}
+          Submit{" "}
+          {isLoading && (
+            <Spinner aria-label="Spinner button example" className="px-1" />
+          )}
         </Button>
       </form>
     </div>

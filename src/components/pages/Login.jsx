@@ -10,6 +10,7 @@ import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 
 import { auth } from "./../../config/firebase";
+import { Spinner } from "flowbite-react/lib/esm";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -94,7 +95,10 @@ const Login = () => {
             }}
             style={{ flex: "1" }}
           >
-            Submit {isLoading && "...."}
+            Login{" "}
+            {isLoading && (
+              <Spinner aria-label="Spinner button example" className="px-1" />
+            )}
           </Button>
           <Button
             onClick={() => {

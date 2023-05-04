@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Avatar, Dropdown, Navbar } from "flowbite-react";
+import { Avatar, Dropdown, Navbar, Button } from "flowbite-react";
 
 import { useContext } from "react";
 import { AuthContext } from "./../../contexts/AuthContext";
@@ -11,11 +11,7 @@ const Header = () => {
     <div>
       <Navbar fluid={true} rounded={true}>
         <Navbar.Brand href="/">
-          <img
-            src="/src/assets/logo.png"
-            className="mr-3 h-6 sm:h-36"
-            alt=" Logo"
-          />
+          <img src="/logo.png" className="mr-3 h-6 sm:h-36" alt=" Logo" />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white"></span>
         </Navbar.Brand>
         <div className="flex md:order-2">
@@ -43,7 +39,10 @@ const Header = () => {
               <Dropdown.Item onClick={logout}>Sign out</Dropdown.Item>
             </Dropdown>
           ) : (
-            <button>login</button>
+            <Link to={"/login"}>
+              {" "}
+              <Button>Login</Button>
+            </Link>
           )}
 
           <Navbar.Toggle />
@@ -51,7 +50,6 @@ const Header = () => {
         <Navbar.Collapse>
           <Link to={"/"}>Home</Link>
           <Link to={"/blog"}>Blog</Link>
-          <Link to={"/login"}>Login</Link>
         </Navbar.Collapse>
       </Navbar>
     </div>

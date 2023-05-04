@@ -6,7 +6,7 @@ const Foooter = () => {
       <Footer container={true} style={{ border: "none" }}>
         <div className="w-full text-center">
           <div className="w-full justify-between sm:flex sm:items-center sm:justify-between ">
-            <img src="/src/assets/logo.png" alt="logo" className=" w-32" />
+            <img src="/logo.png" alt="logo" className=" w-32" />
             <Footer.LinkGroup className="text-center items-center flex justify-around ">
               <Footer.Link href="#" className="mr-6">
                 Home
