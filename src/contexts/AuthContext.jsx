@@ -1,6 +1,6 @@
 // AuthContext.js
 
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
@@ -11,15 +11,45 @@ export const AuthProvider = ({ children }) => {
 
   const [authToken, setAuthToken] = useState(null);
 
-  const login = (token, user) => {
+  const login = (token, newUser) => {
     setIsLoggedIn(true);
     setUserData(user);
     setAuthToken(token);
+    // save on local storage
+    localStorage.setItem(
+      "AuthContext",
+      JSON.stringify({ authToken: token, user: newUser, isLoggedIn: true })
+    );
   };
 
   const logout = () => {
     setIsLoggedIn(false);
   };
+
+  const getStoredData = () => {
+    const result = { authToken: null, user: null, isLoggedIn: false };
+    try {
+      let localStorageData = localStorage.getItem("AuthContext");
+      localStorageData = JSON.parse(localStorageData);
+
+      // const { authToken, user, isLoggedIn } = localStorageData;
+      console.log({ localStorageData });
+
+      result.authToken = localStorageData.authToken;
+      result.user = localStorageData.user;
+      result.isLoggedIn = localStorageData.isLoggedIn;
+
+      setIsLoggedIn(localStorageData.isLoggedIn);
+      setUserData(localStorageData.user);
+      setAuthToken(localStorageData.authToken);
+    } catch (ex) {}
+    return result;
+  };
+
+  useEffect(() => {
+    console.log("// retrive from local storage");
+    getStoredData();
+  }, []);
 
   return (
     <AuthContext.Provider

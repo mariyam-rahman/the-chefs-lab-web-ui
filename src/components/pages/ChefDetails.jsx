@@ -5,8 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const ChefDetails = () => {
   const { isLoggedIn } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const params = useParams();
+
   useEffect(() => {
     if (!isLoggedIn) {
       navigate("/login", { state: { redirectTo: `/chef/${params.id}` } });
@@ -14,7 +16,7 @@ const ChefDetails = () => {
   }, []);
 
   const [chef, setChef] = useState(null);
-  console.log({ chef });
+  // console.log({ chef });
   useEffect(() => {
     axios
       .get(`http://localhost:3000/chef/${params.id}`)
@@ -27,6 +29,7 @@ const ChefDetails = () => {
         <div className="hero-content flex-col lg:flex-row">banner</div>
       </div>
       <div>other details of chef</div>
+      <div>{isLoading && "shit"}</div>
       <div>
         {chef?.recipes?.map((e, i) => (
           <ChefRecipe chef={e} key={i} />

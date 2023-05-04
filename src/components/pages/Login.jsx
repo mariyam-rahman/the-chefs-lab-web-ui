@@ -11,8 +11,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,7 +28,7 @@ const Login = () => {
         const user = userCredential.user;
         console.log({ user });
 
-        login(user.accessToken, { email: user.email });
+        login(user.accessToken, { email: user.email, id: user.uid });
         // toast
         navigate(location.state.redirectTo || "/");
 

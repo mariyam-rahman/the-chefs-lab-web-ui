@@ -11,8 +11,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 const Register = () => {
   const { login } = useContext(AuthContext);
 
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Register = () => {
         // Signed in
         setIsLoading(false);
         const user = userCredential.user;
-        console.log({ user });
+        console.log({ userCredential });
         login(user.accessToken, { email: user.email });
         // toast
         navigate(location?.state?.redirectTo || "/");
