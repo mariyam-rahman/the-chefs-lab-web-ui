@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { useState } from "react";
-
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import { AuthContext } from "./contexts/AuthContext";
-
+import { ToastContainer } from "react-toastify";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Main from "./components/pages/Main";
 import Home from "./components/pages/Home";
@@ -47,6 +47,7 @@ function App() {
 
   return (
     <React.StrictMode>
+      <ToastContainer />
       <RouterProvider router={router} />
     </React.StrictMode>
   );

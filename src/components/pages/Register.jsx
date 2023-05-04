@@ -13,6 +13,7 @@ import {
 import { useNavigate, useLocation } from "react-router-dom";
 import { auth } from "./../../config/firebase";
 import { Spinner } from "flowbite-react/lib/esm";
+import { toast } from "react-toastify";
 const Register = () => {
   const { login } = useContext(AuthContext);
 
@@ -101,7 +102,7 @@ const Register = () => {
             value={email}
             id="email1"
             type="email"
-            placeholder="name@flowbite.com"
+            placeholder="name@domain.com"
             required={true}
             onChange={(e) => {
               setEmail(e.target.value);
@@ -122,16 +123,36 @@ const Register = () => {
             }}
           />
         </div>
-        <div className="flex items-center gap-2">
-          <Checkbox id="remember" />
-          <Label htmlFor="remember">Remember me</Label>
-        </div>
 
         <Button
           type="submit"
           onClick={(e) => {
+            const toastConfig = {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            };
+            const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
             e.preventDefault();
-            onSubmit();
+
+            const isEmailValid = emailRegex.test(email);
+
+            if (!password) {
+              toast("Password is required", toastConfig);
+            } else if (password.length <= 6) {
+              toast("Password must be more than 6 characters", toastConfig);
+            } else if (!email) {
+              toast("Email is required", toastConfig);
+            } else if (isEmailValid) {
+              toast("Please enter a valid email", toastConfig);
+            } else {
+              onSubmit();
+            }
           }}
         >
           Submit{" "}

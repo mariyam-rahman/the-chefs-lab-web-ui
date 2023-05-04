@@ -23,7 +23,11 @@ const Header = () => {
                 <Avatar
                   alt="User settings"
                   // img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                  img={user?.photoURL}
+                  img={
+                    user && user.photoURL
+                      ? user.photoURL
+                      : "https://www.w3schools.com/howto/img_avatar.png"
+                  }
                   rounded={true}
                 />
               }
