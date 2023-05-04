@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Button, Card } from "flowbite-react";
+import { Card } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -24,8 +24,9 @@ export default function Chefs() {
 }
 
 const ChefItem = ({ chef }) => {
-  console.log(chef);
+  // console.log(chef);
   const {
+    id,
     name,
     imageUrl,
     yearsOfExperience,
@@ -56,13 +57,12 @@ const ChefItem = ({ chef }) => {
           {likesCount}
         </div>
 
-        <Link to="/chef-details">
-          <p
-            href="#"
-            className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            View Recipes
-          </p>
+        <Link
+          to={`/chef/${id}`}
+          className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          style={{ border: "1px solid red" }}
+        >
+          View Recipes
         </Link>
       </div>
     </Card>

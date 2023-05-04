@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         element: <Register></Register>,
       },
       {
-        path: "/chef-details",
+        path: "/chef/:id",
         element: <ChefDetails></ChefDetails>,
       },
     ],
@@ -42,8 +42,8 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const [count, setCount] = useState(0);
-  const { isLoggedIn, login, logout } = useContext(AuthContext);
+  // const [count, setCount] = useState(0);
+  // const { isLoggedIn, login, logout } = useContext(AuthContext);
 
   return (
     <React.StrictMode>

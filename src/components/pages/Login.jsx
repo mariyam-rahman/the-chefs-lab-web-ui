@@ -30,7 +30,7 @@ const Login = () => {
 
         login(user.accessToken, { email: user.email });
         // toast
-        navigate(location.state.redirectTo);
+        navigate(location.state.redirectTo || "/");
 
         // ...
       })

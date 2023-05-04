@@ -27,7 +27,7 @@ const Register = () => {
         console.log({ user });
         login(user.accessToken, { email: user.email });
         // toast
-        navigate(location.state.redirectTo);
+        navigate(location?.state?.redirectTo || "/");
       })
       .catch((error) => {
         setIsLoading(false);
